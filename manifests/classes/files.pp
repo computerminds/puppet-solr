@@ -2,14 +2,14 @@ class solr::files {
   exec { "download_solr":
     cwd => "/tmp",
     command => "/usr/bin/wget -c http://apache.mirrors.pair.com/lucene/solr/3.4.0/apache-solr-3.4.0.tgz",
-    creates => "/tmp/apache-solr-3.4.0.tgz",
+    creates => [ "/tmp/apache-solr-3.4.0.tgz", "/var/lib/tomcat6/webapps/solr" ],
     timeout => 0,
   }
 
   exec { "unpack_solr":
     cwd => "/tmp",
     command => "/bin/tar xzf /tmp/apache-solr-3.4.0.tgz",
-    creates => "/tmp/apache-solr-3.4.0",
+    creates => [ "/tmp/apache-solr-3.4.0", "/var/lib/tomcat6/webapps/solr" ],
     require => Exec["download_solr"],
   }
 
